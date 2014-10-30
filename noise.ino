@@ -130,18 +130,17 @@ void setup() {
   pinMode(A0, INPUT);
   delay(1000);
 
-  //LEDS.addLeds<WS2811_PORTC,8>(leds, longestStrip).setCorrection(TypicalSMD5050);
-
-  
+  LEDS.addLeds<WS2811_PORTC,8>(leds, longestStrip).setCorrection(TypicalSMD5050);
+  /*
   LEDS.addLeds<WS2812B, pin1, GRB>(leds, strip1).setCorrection(TypicalSMD5050);
   LEDS.addLeds<WS2812B, pin2, GRB>(leds, strip1, strip2).setCorrection(TypicalSMD5050);
   LEDS.addLeds<WS2812B, pin3, GRB>(leds, strip1 + strip2, strip3).setCorrection(TypicalSMD5050);
   LEDS.addLeds<WS2812B, pin4, GRB>(leds, strip1 + strip2 + strip3, strip4).setCorrection(TypicalSMD5050);
   LEDS.addLeds<WS2812B, pin5, GRB>(leds, strip1 + strip2 + strip3 + strip4, strip5).setCorrection(TypicalSMD5050);
   LEDS.addLeds<WS2812B, pin6, GRB>(leds, strip1 + strip2 + strip3 + strip4 + strip5, strip6).setCorrection(TypicalSMD5050);
-  
+  */
   FastLED.setBrightness(255);
-  set_max_power_in_volts_and_milliamps(5, 2100);
+  set_max_power_in_volts_and_milliamps(5, 500);
   setAllColor(CRGB::Black);
   show_at_max_brightness_for_power();
 
@@ -248,7 +247,7 @@ void setColFromSerial()
     setAllColor(CRGB::Black);
     Serial.print("is ");Serial.println(inByte);
     if (inByte < kColumns)
-      setColumnColor(inByte, CRGB::Fuchsia);
+      setColumnColor(inByte, CRGB::Red);
     leds[inByte] = CRGB::Blue;
     inByte = 0;
     serialComplete = false;
@@ -288,23 +287,26 @@ void listenToMic()
 void loop()
 {
   //listenToMic();
-  drawNoise();
 
   /*
   setRowColor(0, CRGB::Red);
-  setRowColor(0, CRGB::Blue);
-  setRowColor(0, CRGB::Green);
-  setRowColor(0, CRGB::Fuchsia);
-  setRowColor(0, CRGB::Yellow);
-  setRowColor(0, CRGB::White);
-  setRowColor(0, CRGB::Orange);
-  setRowColor(0, CRGB::Teal);
-  setRowColor(0, CRGB::LightGreen);
-*/
+  setRowColor(1, CRGB::Blue);
+  setRowColor(2, CRGB::Green);
+  setRowColor(3, CRGB::Fuchsia);
+  setRowColor(4, CRGB::Yellow);
+  setRowColor(5, CRGB::White);
+  setRowColor(6, CRGB::Orange);
+  setRowColor(7, CRGB::Teal);
+  setRowColor(8, CRGB::Red);
+
+  show_at_max_brightness_for_power(); 
+  delay_at_max_brightness_for_power(500);
+  */
 
   //setColFromSerial();
+  drawNoise();
   show_at_max_brightness_for_power(); 
-  delay_at_max_brightness_for_power(1);
+  delay_at_max_brightness_for_power(50);
 }
 
 // takes an 8-bit height and maps it to column
